@@ -53,7 +53,9 @@ function App() {
   };
 
   const handleClose =() => setOpen(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen (true)
+  };
 
   return (
     <>
@@ -120,7 +122,7 @@ function App() {
                                 gap: "10px",
                               }}
                             >
-                              <Button variant="contained" color="secondary">
+                              <Button onClick={() => handleOpen()} variant="contained" color="secondary">
                                 Edit
                               </Button>
                               <Button
