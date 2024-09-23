@@ -52,9 +52,18 @@ function App() {
     setListItems((items) => items.filter((item) => item.id !== id));
   };
 
-  const handleClose =() => setOpen(false);
-  const handleOpen = () => {
-    setOpen (true)
+  const handleEdit = () => {
+    const selectedItem = listItems.filter((item) => item.id === selectedId);
+    selectedItem[0].content = editInput;
+    setOpen(false);
+  };
+
+  const handleClose = () => setOpen(false);
+
+  const handleOpen = (id, content) => {
+    setOpen(true);
+    setEditInput(content);
+    setSelectedId(id);
   };
 
   return (
@@ -122,7 +131,11 @@ function App() {
                                 gap: "10px",
                               }}
                             >
-                              <Button onClick={() => handleOpen()} variant="contained" color="secondary">
+                              <Button
+                                onClick={() => handleOpen(id, content)}
+                                variant="contained"
+                                color="secondary"
+                              >
                                 Edit
                               </Button>
                               <Button
@@ -150,23 +163,27 @@ function App() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={{
-           position: 'absolute',
-           top: '50%',
-           left: '50%',
-           transform: 'translate(-50%, -50%)',
-           width: 400,
-           bgcolor: 'background.paper',
-           border: '2px solid #000',
-           boxShadow: 24,
-           p: 4,
-        }}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <TextField
+            label="Edit"
+            value={editInput}
+            onChange={(e) => setEditInput(e.target.value)}
+          />
+          <Button variant="contained" onClick={handleEdit}>
+            OK
+          </Button>
         </Box>
       </Modal>
     </>
